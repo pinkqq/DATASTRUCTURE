@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+    <script>
+        //求a、b并集
+        var a = ['red', 'orange', 'yellow'];
+        var b = ['red', 'orange', 'green'];
+        for (let index = 0; index < a.length; index++) {
+            if (b.indexOf(a[index]) === -1) {
+                b[b.length] = a[index];
+            }
+        }
+        console.log(b);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

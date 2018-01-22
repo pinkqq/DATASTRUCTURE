@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+<script>
+    function LinkedList() {
+        //定义节点
+        var Node = function(element) {
+            this.element = element; //数据域
+            this.next = null; //指针域
+        }
+        var length = 0, //单链表的长度
+            head = new Node(null); //头结点：做统一化处理
+
+        //显示链表
+        this.showAll = function() {
+            let list = [],
+                current;
+            current = head;
+            while (current.next) {
+                current = current.next;
+                list[list.length] = current.element;
+            }
+            return list;
+        }
+
+        //头插法
+        this.prepend = function(element) {
+            let node = new Node(element), //new 一个结点
+                current; // 临时存放新结点
+            node.next = head.next;
+            head.next = node;
+            length++;
+            return true;
+        }
+
+        //尾插法
+        this.append = function(element) {
+            let node = new Node(element), //new 一个结点
+                current; // 遍历所有结点
+            current = head;
+            while (current.next) {
+                current = current.next;
+            }
+            current.next = node;
+            length++;
+            return true;
+        }
+
+        //在单链表任意位置插入结点
+        this.insert = function(position, element) {
+            let current = head,
+                node = new Node(element),
+                j = 1;
+            if (position < 1 || position > length + 1) {
+                return Error;
+            } else {
+                while (j < position) {
+                    current = current.next;
+                    j++;
+                }
+                node.next = current.next;
+                current.next = node;
+                length++;
+                return true;
+            }
+
+        }
+
+        //在单链表任意位置删除结点
+        this.delete = function(position) {
+            let current = head,
+                j = 1;
+            if (position < 1 || position > length) {
+                return Error;
+            } else {
+                while (j < position) {
+                    current = current.next;
+                    j++;
+                }
+                current.next = current.next.next;
+                length--;
+                return true;
+            }
+
+        }
+
+        //查找第i位置元素
+        this.getElm = function(position) {
+            let current = head,
+                j = 0;
+            if (position < 1 || position > length) {
+                return 'not found it'
+            }
+            while (j < position) {
+                current = current.next;
+                j++;
+            }
+            return current.element;
+        }
+
+        //获取element的position
+        this.indexOf = function(element) {
+            let position = 0,
+                current = head;
+            while (current.element !== element) {
+                current = current.next;
+                position++;
+            }
+            return position;
+        }
+
+        //整表删除
+        this.clearAll = function() {
+            let q = head; //头结点
+            while (q) {
+                p = q.next;
+                q.next = null;
+                q = p;
+            }
+            length = 0;
+            return true;
+        }
+    }
+
+    var firstList = new LinkedList();
+    firstList.append('one');
+    firstList.append('two');
+    firstList.append('three');
+</script>
+
+</html>
