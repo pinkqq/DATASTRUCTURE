@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>静态链表</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+<script>
+    //数组实现单链表
+    function staticList() {
+        var list = [],
+            MAX = 999,
+            length = 0,
+            Node = function(element) {
+                this.data = element;
+                this.cur = null;
+            };
+        //初始化list
+        this.init = function() {
+            //最后一个元素不存放数据，cur指向第一个存放数据的元素
+            list[MAX - 1] = {
+                    cur: 0,
+                    data: null
+                }
+                //其余元素构成备用链表
+            for (i = 0; i < MAX - 1; i++) {
+                list[i] = new Node(null);
+                list[i].cur = i + 1;
+            }
+            list[MAX - 2].cur = 0; //备用链表最后一个元素置为空
+            return list;
+        }
+        this.Malloc = function() {
+            let m = list[0].cur; //备用链表第一个结点
+            list[0].cur = list[m].cur;
+            return m;
+
+        }
+        this.insert = function(element, index) {
+            let node = new Node(element),
+                k = MAX - 1, //指向第一个有内容的结点
+                j = 1,
+                m;
+            if (index < 1 || index > length + 1) {
+                return '插入位子无效！'
+            } else {
+                for (j; j < index; j++) {
+                    onsole.log('k:' + k)
+                    k = list[k].cur;
+                    onsole.log('k:' + k)
+                }
+                console.log('k:' + k)
+                m = this.Malloc();
+                list[m].cur = list[k].cur;
+                list[k].cur = m;
+            }
+            length++;
+            return list;
+        }
+    }
+    var l = new staticList();
+    l.init();
+</script>
+
+</html>
