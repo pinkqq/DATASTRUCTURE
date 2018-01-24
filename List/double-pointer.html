@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+<script>
+    //随机生成20个元素，找到中间值。
+    function Linkedlist() {
+        var Node = function(element) {
+                this.element = element;
+                this.next = null;
+            },
+            head = new Node(null); //头指针指向头结点
+
+        this.showAll = function() {
+            let list = [],
+                current;
+            current = head;
+            while (current.next) {
+                current = current.next;
+                list[list.length] = current.element;
+            }
+            return list;
+        }
+
+        this.prepend = function() {
+            let node = null;
+            for (let i = 0; i < 20; i++) {
+                node = new Node(parseInt(Math.random() * 100));
+                node.next = head.next;
+                head.next = node;
+            }
+            return this.showAll();
+        }
+
+        this.getMidpoint = function() {
+            //     //一般方法
+            //     let current = head,
+            //         mid = null,
+            //         length = 0;
+            //     while (current.next) {
+            //         current = current.next;
+            //         length++;
+            //     }
+            //     mid = head;
+            //     for (let i = 0; i < length / 2; i++) {
+            //         mid = mid.next;
+            //     }
+            //     return mid.element;
+            // }
+
+            // -_< 双指针
+            let mid = head,
+                pre = head;
+            while (pre.next) {
+                if (pre.next.next) {
+                    pre = pre.next.next;
+                    mid = mid.next;
+                } else {
+                    pre = pre.next;
+                }
+            }
+            return mid.element
+
+        }
+    }
+    var l = new Linkedlist();
+    l.prepend();
+</script>
+
+</html>
