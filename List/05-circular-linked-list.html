@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+</body>
+<script>
+    //循环列表和单链表的区别(空列表)：
+    //   单链表： head->next=null;
+    //   循环链表： head->next=head->next;
+    function cirlList() {
+        var Node = function(element) {
+                this.element = element;
+                this.next = null;
+            },
+            head = null;
+        this.init = function() {
+            head = new Node(null);
+            head.next = head.next;
+            return this;
+        }
+        this.append = function(element) {
+            let node = new Node(element),
+                current = head;
+            while (current.next !== head.next) {
+                current = current.next;
+            }
+            current.next = node;
+            node.next = head;
+            return head;
+        }
+    }
+    var cList = new cirlList();
+    cList.init();
+</script>
+
+</html>
