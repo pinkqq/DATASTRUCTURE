@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>约瑟夫环</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+<script>
+    function Josephus(p, m) {
+        //约瑟夫环
+        //规则：共有p人，逢m杀人
+
+        /*解法一：循环列表*/
+        var Node = function(element) {
+                this.element = element;
+                this.next = null;
+            },
+            rear = null; //尾结点
+        this.init = function() {
+            rear = new Node(p);
+            rear.next = rear;
+            let i = 1,
+                current = rear,
+                node = null;
+            while (i < p) {
+                node = new Node(i);
+                node.next = current.next;
+                current.next = node;
+                current = node;
+                i++;
+            }
+            return rear;
+        }
+
+        //问死亡顺序
+        this.deathOrder = function() {
+            var order = [],
+                current = rear.next,
+                i;
+            if (m == 1) {
+                for (i = 1; i < p + 1; i++) {
+                    order[order.length] = i;
+                }
+                return order;
+            }
+            while (1) {
+                for (i = 1; i < m - 1; i++) {
+                    current = current.next;
+                }
+                order[order.length] = current.next.element;
+                current.next = current.next.next;
+                current = current.next;
+                if (current.next === current.next.next) {
+                    order[order.length] = current.element;
+                    return order;
+                }
+            }
+        }
+
+
+        /*约瑟夫环升级版*/
+        //规则：共有p人，每个人手中有一个随机的数字，逢s杀人，s是上一个被杀者手中的数字。
+        this.initPlus = function() {
+            rear = new Node({
+                code: parseInt(Math.random() * 10 + 1),
+                index: p
+            });
+            rear.next = rear;
+            let i = 1,
+                current = rear,
+                node = null;
+            while (i < p) {
+                node = new Node({
+                    code: parseInt(Math.random() * 10 + 1),
+                    index: i
+                });
+                node.next = current.next;
+                current.next = node;
+                current = node;
+                i++;
+            }
+            return rear;
+        }
+        this.deathOrderPlus = function() {
+            var order = [],
+                current = rear,
+                i,
+                s = rear.next.element.code;
+            while (1) {
+                for (i = 1; i < s; i++) {
+                    current = current.next;
+                }
+                order[order.length] = current.next.element.index;
+                current.next = current.next.next;
+                s = current.next.element.code;
+                if (current.next === current.next.next) {
+                    order[order.length] = current.element.index;
+                    return order;
+                }
+            }
+        }
+    }
+
+    /*解法二：递归 recursive*/
+
+    var winner = function(m, k, i) {
+        if (i == 1)
+            return 0;
+        else
+            return (winner(m - 1, k, i - 1) + k) % m;
+    }
+    console.log('最后的胜利者：' + (winner(7, 3, 7) + 1));
+
+
+    // this.winner = function() {
+    //     let s = 0,
+    //         i;
+    //     for (i = 2; i <= p; i++) {
+    //         s = (s + m) % i;
+    //     }
+    //     return s + 1;
+    // }
+</script>
+
+</html>
