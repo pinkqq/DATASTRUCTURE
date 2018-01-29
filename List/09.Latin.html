@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>拉丁方阵</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+<script>
+    var Latin = function() {
+        var Node = function(element) {
+                this.element = element;
+                this.next = null;
+            },
+            rear = new Node(null);
+        this.create = function(n) {
+            //建立循环列表
+            let current = rear,
+                string = '\n';
+            for (let i = 1; i < n; i++) {
+
+                current.next = new Node(i)
+                current = current.next;
+            }
+            current.next = rear;
+            rear.element = n;
+            // 打印拉丁方阵
+            for (let j = 0; j < n; j++) {
+                rear = rear.next;
+                current = rear;
+                for (let k = 0; k < n; k++) {
+                    string += current.element + ' ';
+                    current = current.next;
+                }
+                string += '\n';
+            }
+            return string
+        }
+    }
+    var latin = new Latin();
+</script>
+
+</html>

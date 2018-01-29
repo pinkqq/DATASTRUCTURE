@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>魔术师发牌问题</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+<script>
+    var Magic = function() {
+        var Node = function(element) {
+                this.element = element;
+                this.next = null;
+            },
+            head = new Node(null),
+            numbers = 13;
+
+        this.init = function() {
+            let current = head;
+            for (let i = 0; i < numbers; i++) {
+                current.next = new Node(null);
+                current = current.next;
+            }
+            head = head.next;
+            current.next = head;
+            return this.show();
+        }
+
+        this.show = function() {
+            let current = head,
+                list = [];
+            for (let i = 0; i < numbers; i++) {
+                list[list.length] = current;
+                current = current.next;
+            }
+
+            return list;
+        }
+
+        this.cards = function() {
+            let index = 1,
+                counter = 0,
+                current = head;
+
+            while (1) {
+                if (!current.element) {
+                    counter++;
+                    if (counter == index) {
+                        counter = 0;
+                        current.element = index;
+                        index++;
+                        if (index > numbers) {
+                            break;
+                        }
+                    }
+                }
+                current = current.next;
+            }
+            return this.show()
+        }
+    }
+    var magic = new Magic();
+    magic.init();
+</script>
+
+</html>
