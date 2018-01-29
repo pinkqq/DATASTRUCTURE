@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>有环链表</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+
+</body>
+<script>
+    function Loop() {
+        //创建带环链表：单链表+循环链表
+        var Node = function(element) {
+                this.element = element;
+                this.next = null;
+            },
+            head = new Node(null),
+            rear = new Node(null),
+            length = 0;
+
+        this.init = function() {
+            let a = parseInt(Math.random() * 10 + 3),
+                b = parseInt(Math.random() * 20 + 4),
+                currentA = head,
+                currentB = rear;
+            for (let i = 0; i < a; i++) {
+                currentA.next = new Node(i);
+                currentA = currentA.next;
+                length++;
+            }
+            for (let j = 0; j < b; j++) {
+                currentB.next = new Node(j);
+                currentB = currentB.next;
+                length++;
+            }
+            rear = rear.next;
+            currentB.next = rear;
+            currentA.next = rear;
+            return length;
+        }
+        this.get = function(i) {
+            let list = [],
+                current = head;
+            for (let j = 0; j < i; j++) {
+                list[list.length] = current.next.element;
+                current = current.next;
+            }
+            return list;
+        }
+
+        //双指针解法一：快慢指针
+        this.doublePointer = function() {
+            let one = head,
+                two = head;
+            while (one.next != null) {
+                one = one.next;
+                two = two.next.next;
+                if (one.next == two.next) {
+                    return '这里有个环！';
+                }
+            }
+            return '此处无环'
+        }
+
+        //双指针解法二：比较步数
+        this.dP = function() {
+            let one,
+                two = head,
+                lengthOne = 0,
+                lengthTwo = 0;
+            while (two.next != null) {
+                two = two.next;
+                one = head;
+                lengthOne++;
+                lengthTwo = 0;
+                while (one.next != two.next) {
+                    one = one.next;
+                    lengthTwo++;
+                }
+                if (lengthOne != lengthTwo) {
+                    return lengthTwo + '处又见一环'
+                }
+            }
+            return '木有环'
+        }
+    }
+    var loop = new Loop();
+</script>
+
+</html>
