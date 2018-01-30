@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>双向链表</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+<script>
+    var DList = function() {
+        var Node = function(element) {
+                this.prior = null;
+                this.element = element;
+                this.next = null;
+            },
+            rear = new Node(null), //尾结点
+            length = 0;
+
+        this.init = function(n) {
+            let current = rear,
+                prior = current;
+            for (let i = 1; i < n; i++) {
+                current.next = new Node(i);
+                current = current.next;
+                current.prior = prior;
+                prior = current;
+                length++;
+            }
+            rear.element = n;
+            rear.prior = prior;
+            current.next = rear;
+            length++;
+            return rear;
+        }
+
+        this.show = function() {
+            let current = rear.next,
+                list = [];
+            for (let i = 0; i < length; i++) {
+                list[list.length] = current;
+                current = current.next;
+            }
+            return list;
+        }
+
+        this.insert = function(position, data) {
+            let current = rear,
+                node = new Node(data);
+            for (let i = 1; i < position; i++) {
+                current = current.next;
+            }
+            node.prior = current;
+            node.next = current.next;
+            current.next.prior = node;
+            current.next = node;
+            length++;
+            return node;
+        }
+
+        this.delete = function(position) {
+            let current = rear;
+            for (let i = 1; i < position; i++) {
+                current = current.next;
+            }
+            current.next.next.prior = current;
+            current.next = current.next.next;
+            length--;
+            return this.show();
+        }
+    }
+
+    var dlist = new DList();
+</script>
+
+</html>
