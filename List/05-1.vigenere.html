@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>双向链表实例-vigenere</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+<script>
+    //vigenere 密码
+    var Vigenere = function() {
+        var Node = function(element) {
+                this.prior = null;
+                this.element = element;
+                this.next = null;
+            },
+            length = 0,
+            rear = new Node(null);
+
+        this.init = function(array) {
+            let current = rear,
+                prior = current;
+            for (let i = 0; i < array.length - 1; i++) {
+                current.next = new Node(array[i]);
+                current = current.next;
+                current.prior = prior;
+                prior = prior.next;
+                length++;
+            }
+            rear.element = array[array.length - 1];
+            rear.prior = current;
+            current.next = rear;
+            length++;
+            return rear;
+        }
+        this.show = function() {
+            let current = rear.next,
+                list = [];
+            for (let i = 0; i < length; i++) {
+                list[list.length] = current;
+                current = current.next;
+            }
+            return list;
+        }
+        this.move = function(number) {
+            let n = parseInt(number) % 26,
+                counter = 0;
+            if (n > 0) {
+                for (let i = 0; i < n; i++) {
+                    rear = rear.next;
+                    counter++;
+                }
+            } else if (n < 0) {
+                n = -n;
+                for (let i = 0; i < n; i++) {
+                    rear = rear.prior;
+                    counter++;
+                }
+            } else {
+                return true;
+            }
+            return rear;
+        }
+
+        this.get = function(letter) {
+            let current = rear.next;
+            while (letter != current.element) {
+                current = current.next;
+            }
+            rear = current.prior;
+            return rear;
+        }
+
+        //加密
+        this.encode = function(sentence) {
+            let arr = sentence.split(""),
+                code = [],
+                text = [];
+            for (let i = 0; i < arr.length; i++) {
+                text[i] = parseInt(Math.random() * 30);
+                this.get(arr[i]);
+                this.move(text[i]);
+                code[i] = rear.next.element;
+                this.move(-text[i]);
+            }
+            return {
+                code: code.join(""),
+                text: text
+            }
+        }
+
+        //解密
+        this.decode = function(obj) {
+            let code = [];
+            obj.code = obj.code.split("");
+            for (let i = 0; i < obj.code.length; i++) {
+                this.get(obj.code[i]);
+                this.move(-obj.text[i]);
+                code[i] = rear.next.element;
+                this.move(obj.text[i]);
+            }
+            return code.join("");
+        }
+    }
+    var vigenere = new Vigenere(),
+        abc = [];
+    for (let i = 65; i < 91; i++) {
+        abc[abc.length] = String.fromCharCode(i);
+    }
+    vigenere.init(abc);
+</script>
+
+</html>
