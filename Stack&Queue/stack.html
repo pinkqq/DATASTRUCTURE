@@ -11,21 +11,26 @@
 <body>
 </body>
 <script>
-    var stack = function() {
-        var stack = [],
-            top, bottom;
-        top = bottom = -1;
-        this.push = function(element) {
-            top++;
-            stack[top] = element; //stack.push()
+    var Stack = function() {
+        this.stack = [];
+        this.top = this.bottom = 0;
+        this.myPush = function(element) {
+
+            this.stack[this.top] = element; //stack.push()
+            this.top++;
         }
         this.pop = function(element) {
-            stack.length--; //stack.pop()
+            this.top--;
+            this.stack.length--; //stack.pop()
         }
         this.clear = function() {
-            stack = [];
+            this.top = this.base;
+        }
+        this.myDestroy = function() {
+            this.stack = [];
         }
     }
+    var stack = new Stack();
 </script>
 
 </html>

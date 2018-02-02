@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>进制转换</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+</body>
+<script>
+    var Stack = function() {
+        this.stack = [];
+        this.top = this.bottom = 0;
+        this.myPush = function(element) {
+
+            this.stack[this.top] = element; //stack.push()
+            this.top++;
+        }
+        this.pop = function(element) {
+            this.top--;
+            this.stack.length--; //stack.pop()
+        }
+        this.clear = function() {
+            this.top = this.base;
+        }
+        this.myDestroy = function() {
+            this.stack = [];
+        }
+    }
+    var Convert = function() {
+        //二进制->十进制
+        this.Bin2Dec = function(number) {
+            var arr = number.toString().split(""),
+                length = arr.length,
+                sum = 0;
+            for (let i = 0; i < length; i++) {
+                sum += arr[arr.length - 1] * Math.pow(2, i);
+                arr.length--;
+            }
+            return sum;
+        }
+
+        //二进制->八进制
+        this.Bin2Oct = function(number) {
+            var n = number,
+                current = [],
+                oct = [],
+                sum = 0,
+                res = "";
+            while (number) {
+                current = (number % 1000).toString().split("");
+                number = Math.floor(number / 1000);
+                for (let i = 0; i < current.length; i++) {
+                    sum += current[i] * Math.pow(2, i);
+                }
+                oct.push(sum);
+                sum = 0;
+            }
+            for (let j = 0; j < oct.length; j++) {
+                res += oct[oct.length - 1 - j];
+            }
+            return res;
+        }
+
+        //十进制->任意
+
+        this.baseConverter = function(decNumber, base) {
+            var remStack = new Stack(),
+                rem,
+                baseString = '',
+                digits = '0123456789ABCDEF';
+            while (decNumber > 0) {
+                rem = Math.floor(decumber % base);
+                remStack.push(rem);
+                decNumber = Math.floor(decNumber / base);
+            }
+
+            while (!remStack.isEmpty()) {
+                baseString += digits[remStack.pop()];
+            }
+
+            return baseString;
+        }
+    }
+    var convert = new Convert();
+</script>
+
+</html>
