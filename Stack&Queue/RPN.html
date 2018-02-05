@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>逆波兰表达式(后缀表达式)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+    <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<style>
+    input {
+        width: 300px;
+    }
+    
+    button {
+        cursor: pointer;
+    }
+    
+    #result {
+        height: 20px;
+        width: 100px;
+        border: 1px solid;
+        margin-top: 10px;
+    }
+</style>
+
+<body>
+    <input type="text" id="rpn" placeholder="请输入逆波兰运算式，元素之间以空格间隔">
+    <button id="confirm">计算</button>
+    <div id="result"></div>
+</body>
+<script>
+    var RPN = function() {
+        //元素之间以空格隔开
+        this.calc = function(f) {
+            let value = f.split(" "),
+                list = [],
+                temp = 0;
+            for (let i = 0; i < value.length; i++) {
+                switch (value[i]) {
+                    case '+':
+                        list.push(list.pop() + list.pop());
+                        break;
+                    case '-':
+                        temp = list.pop();
+                        list.push(list.pop() - temp);
+                        break;
+                    case '*':
+                        list.push(list.pop() * list.pop());
+                        break;
+                    case '/':
+                        temp = list.pop();
+                        list.push(list.pop() / temp);
+                        break;
+                    default:
+                        list.push(Number(value[i]));
+                        break;
+                }
+            }
+            return list[0];
+        }
+    }
+    var rpn = new RPN();
+    $('#confirm').click(function() {
+        $('#result').text(rpn.calc($("#rpn").val()));
+    })
+</script>
+
+</html>
