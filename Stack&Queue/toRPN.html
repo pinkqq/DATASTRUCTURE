@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>中缀表达式转后缀表达式</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+    <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+
+</head>
+<style>
+    input {
+        width: 300px;
+    }
+    
+    button {
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <input type="text" placeholder="请输入中缀表达式">
+    <button id="confirm">转换</button>
+    <input type="text" placeholder="这里是转换后的后缀表达式">
+</body>
+<script>
+    var toRPN = function(formula) {
+        let alist = formula.split(""), //存放中缀表达式
+            blist = [], //存放运算符
+            result = []; //存放后缀表达式
+        for (let i = 0; i < alist.length; i++) {
+            if (alist[i] <= '0' || alist[i] >= '9') {
+                result.push(" ");
+            }
+            if (alist[i] >= '0' && alist[i] <= '9') {
+                result.push(alist[i]);
+            } else if (alist[i] == '/' || alist[i] == '*' || alist[i] == '(') {
+                blist.push(alist[i]);
+            } else if (alist[i] == '+' || alist[i] == '-') {
+                while (blist[blist.length - 1] != '(' && blist[0]) {
+                    result.push(" " + blist.pop())
+                }
+                blist.push(alist[i]);
+            } else if (alist[i] == ')') {
+                while (blist[blist.length - 1] != '(') {
+                    result.push(" " + blist.pop())
+                }
+                blist.pop();
+            }
+        }
+        while (blist[0]) {
+            result.push(' ' + blist.pop())
+        }
+        return result.join("");
+
+    }
+    $("#confirm").click(function() {
+        $("input").eq(1).val(toRPN($("input").eq(0).val()));
+    })
+</script>
+
+</html>
