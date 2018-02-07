@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>链队列</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+
+</body>
+<script>
+    var Queue = function() {
+        //first in first out
+        var Node = function(element) {
+                this.element = element;
+                this.next = null
+            },
+            head = new Node(null),
+            rear = head;
+        length = 0;
+
+        this.getQ = function() {
+            let list = [],
+                current = head;
+            while (current.next) {
+                list[list.length] = current.next.element;
+                current = current.next;
+            }
+            return list;
+        }
+
+        this.insert = function(element) {
+            let node = new Node(element);
+            rear.next = node;
+            rear = rear.next;
+            length++;
+            return this.getQ();
+        }
+
+        this.delete = function() {
+            if (head == rear) {
+                return '队列是空的呐'
+            } else {
+                head = head.next;
+            }
+            return this.getQ();
+        }
+
+    }
+    var queue = new Queue();
+</script>
+
+</html>
