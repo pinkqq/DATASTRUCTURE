@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>递归</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+
+</body>
+<script>
+    //Fibonacci（兔子繁殖数列）
+    function FIB(n) {
+        return n == 0 ? 1 : n == 1 ? 1 : (FIB(n - 1) + FIB(n - 2));
+    }
+    //n!
+    function N(i) {
+        return i == 0 ? 1 : (i * N(i - 1));
+    }
+    //折半查找法-迭代
+    function searchI(num, arr) {
+        let low = 0,
+            high = arr.length - 1,
+            mid = Math.floor((low + high) / 2);
+        while (high >= low) {
+            if (arr[mid] == num) {
+                return mid
+            } else if (arr[mid] < num) {
+                low = mid + 1;
+                mid = Math.floor((low + high) / 2);
+            } else if (arr[mid] > num) {
+                high = mid - 1;
+                mid = Math.floor((low + high) / 2);
+            }
+        }
+        return 'not found it!'
+    }
+
+    //折半查找法-递归
+    function searchR(num, arr, low, high) {
+        let mid = Math.floor((low + high) / 2);
+        if (arr[mid] == num) {
+            return mid;
+        } else if (arr[mid] < num) {
+            return searchR(num, arr, mid + 1, high);
+        } else if (arr[mid] > num) {
+            return searchR(num, arr, low, mid - 1);
+        }
+    }
+</script>
+
+</html>
