@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body>
+
+</body>
+<script>
+    var cycleQ = function() {
+        var length = 10,
+            head = rear = 0,
+            queue = [];
+        this.insert = function(element) {
+            if (queue[rear]) {
+                return 'FULL!'
+            }
+            queue[rear] = element;
+            rear = (rear + 1) % length;
+            return rear;
+        }
+        this.delete = function() {
+            if (!queue[rear] && head == rear) {
+                return 'EMPTY!'
+            }
+            queue[head] = null;
+            head = (head + 1) % length;
+            return head
+        }
+        this.get = function() {
+            return queue;
+        }
+    }
+    var cycleq = new cycleQ();
+</script>
+
+</html>
