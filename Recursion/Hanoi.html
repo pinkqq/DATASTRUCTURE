@@ -15,10 +15,10 @@
     //第一步：
     var hanoi = function(n, x, y, z) {
         if (n == 1) {
-            console.log('1=>z');
+            console.log(x + '=>' + z);
         } else {
             hanoi(n - 1, x, z, y);
-            console.log(n + '=>' + z);
+            console.log(x + '=>' + z);
             hanoi(n - 1, y, x, z);
         }
     }
