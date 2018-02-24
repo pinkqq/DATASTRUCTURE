@@ -43,3 +43,4 @@ k+1 1
 ##KMP算法
 1）暴力匹配算法
 2）next 数组
+<a href="http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html" >字符串匹配的KMP算法 - 阮一峰的网络日志</a>
